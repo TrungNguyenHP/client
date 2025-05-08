@@ -7,7 +7,7 @@ export default defineConfig({
   plugins: [vue()],
   resolve: {
     alias: {
-      '@': path.resolve(__dirname, 'src'),  // cấu hình alias để Vite tìm đúng thư mục src
+      '@': path.resolve(__dirname, 'src'), 
     },
   },
 })

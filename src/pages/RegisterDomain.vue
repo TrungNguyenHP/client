@@ -1,50 +1,33 @@
 <template>
   <div class="p-8 max-w-lg mx-auto">
-    <h1 class="text-3xl font-bold mb-6">Đăng ký Domain: {{ domainName }}</h1>
-    <form @submit.prevent="handleSubmit" class="flex flex-col gap-4">
-      <input v-model="keyword" type="text" placeholder="Nhập tên miền" class="border p-2 rounded" />
-      <button type="submit" class="bg-green-500 text-white py-2 rounded hover:bg-green-600">Đăng ký</button>
+    <h1 class="text-2xl font-semibold mb-4">Đăng ký {{ domainName }}</h1>
+    <form @submit.prevent="submit" class="flex flex-col gap-3">
+      <input v-model="keyword" type="text" placeholder="Tên miền" class="border p-2 rounded" />
+      <button class="bg-blue-600 text-white py-2 rounded hover:bg-blue-700">Đăng ký</button>
     </form>
   </div>
 </template>
 
 <script setup lang="ts">
+import { ref, onMounted } from 'vue'
 import { useRoute, useRouter } from 'vue-router'
-import { ref } from 'vue'
+import axios from 'axios'
 
 const route = useRoute()
 const router = useRouter()
-
-const domainName = route.params.domain
+const domainName = route.params.domain as string
 const keyword = ref('')
+const price = ref(0)
 
-const domainPrices: Record<string, number> = {
-  com: 290000,
-  net: 320000,
-  org: 300000,
-  vn: 850000,
-  tech: 250000,
-  info: 370000,
-  co: 700000,
-  xyz: 50000,
-  'com.vn': 700000,
-}
+onMounted(async () => {
+  const res = await axios.get('http://localhost:5246/api/domain_product')
+  const item = res.data.find((d: any) => d.domainName === domainName)
+  if (item) price.value = item.price
+})
 
-const handleSubmit = () => {
-  if (!keyword.value) {
-    alert("Vui lòng nhập tên miền.")
-    return
-  }
-const domainKey = domainName.replace(".", "")
-const fullDomain = `${keyword.value}.${domainKey}`
-const price = domainPrices[domainKey] || 300000
-  console.log('Redirecting to checkout with:', fullDomain, price)
-  router.push({
-    name: 'Checkout',
-    query: {
-      domain: fullDomain,
-      price: price.toString(),
-    },
-  })
+const submit = () => {
+  if (!keyword.value || !price.value) return alert('Vui lòng nhập tên miền.')
+  const fullDomain = `${keyword.value}.${domainName.replace(/^\./, '')}`
+  router.push({ name: 'Checkout', query: { domain: fullDomain, price: price.value.toString() } })
 }
 </script>

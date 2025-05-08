@@ -58,8 +58,6 @@ const handleSubmit = () => {
     alert('Vui lòng điền đầy đủ thông tin.')
     return
   }
-
-
   alert(`Cảm ơn ${name.value}, chúng tôi đã nhận được liên hệ của bạn!`)
 
   name.value = ''

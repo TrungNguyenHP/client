@@ -1,8 +1,8 @@
-<!-- src/layouts/DefaultLayout.vue -->
+
 <template>
-    <div>
+    <div class="min-h-screen flex flex-col">
       <Navbar />
-      <main class="p-4">
+      <main class="flex-grow p-4">
         <RouterView />
       </main>
       <Footer />

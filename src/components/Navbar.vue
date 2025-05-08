@@ -25,8 +25,6 @@
                 class="block px-5 py-3 hover:bg-gray-100 transition">Các gói domain</router-link>
               <router-link to="/renew" @click="closeDropdowns"
                 class="block px-5 py-3 hover:bg-gray-100 transition">Gia hạn domain</router-link>
-              <router-link to="/transfer" @click="closeDropdowns"
-                class="block px-5 py-3 hover:bg-gray-100 transition">Chuyển domain</router-link>
             </div>
           </transition>
         </div>
@@ -40,7 +38,7 @@
       
         <div class="relative">
           <button @click="toggleProfileDropdown" class="flex items-center gap-2 hover:text-gray-200 transition">
-            <span class="text-lg">Tên...</span>
+            <span class="text-lg">{{ customerName }}</span>
             <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 transition-transform duration-200"
               :class="profileDropdownOpen ? 'rotate-180' : ''" fill="none" viewBox="0 0 24 24" stroke="currentColor">
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
@@ -65,12 +63,13 @@
 </template>
 
 <script setup lang="ts">
-import { ref } from 'vue'
+import { ref,onMounted } from 'vue'
 import { useRouter } from 'vue-router'
 
 const router = useRouter()
 const domainDropdownOpen = ref(false)
 const profileDropdownOpen = ref(false)
+const customerName = ref('')
 
 const toggleDomainDropdown = () => {
   domainDropdownOpen.value = !domainDropdownOpen.value
@@ -89,9 +88,12 @@ const closeDropdowns = () => {
 
 const logout = () => {
   localStorage.removeItem('token')
-  closeDropdowns()
+  localStorage.removeItem('customerName')
   router.push('/login')
 }
+onMounted(() => {
+  customerName.value = localStorage.getItem('customerName') || 'Tên người dùng'
+})
 </script>
 
 <style scoped>
