@@ -18,16 +18,19 @@ const router = useRouter()
 const domainName = route.params.domain as string
 const keyword = ref('')
 const price = ref(0)
-
+const productId = ref<number | null>(null)
 onMounted(async () => {
   const res = await axios.get('http://localhost:5246/api/domain_product')
   const item = res.data.find((d: any) => d.domainName === domainName)
-  if (item) price.value = item.price
+  if (item){
+    price.value = item.price
+    productId.value = item.id
+  } 
 })
 
 const submit = () => {
-  if (!keyword.value || !price.value) return alert('Vui lòng nhập tên miền.')
+  if (!keyword.value || !price.value || !productId.value) return alert('Vui lòng nhập tên miền.')
   const fullDomain = `${keyword.value}.${domainName.replace(/^\./, '')}`
-  router.push({ name: 'Checkout', query: { domain: fullDomain, price: price.value.toString() } })
+  router.push({ name: 'Checkout', query: { domain: fullDomain, price: price.value.toString(),domainProductId: productId.value.toString() } })
 }
 </script>

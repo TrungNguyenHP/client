@@ -13,7 +13,7 @@ import Login from '@/pages/Login.vue'
 import Register from '@/pages/Register.vue'
 import GuestLayout from '@/layouts/GuestLayout.vue'
 import DefaultLayout from '@/layouts/DefaultLayout.vue'
-
+import OrderSuccess from '@/pages/OrderSuccess.vue'
 const routes = [
   {
     path: '/',
@@ -29,6 +29,7 @@ const routes = [
       { path: 'renew', name: 'Renew', component: Renew },
       { path: 'profile', name: 'Profile', component: Profile },
       { path: 'profile/userservices', name: 'UserServices', component: UserServices },
+      { path: 'OrderSuccess', name: 'OrderSuccess', component: OrderSuccess },
     ],
   },
   {

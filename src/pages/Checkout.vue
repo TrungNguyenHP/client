@@ -1,20 +1,23 @@
 <template>
   <div class="p-8 max-w-lg mx-auto">
-    <h1 class="text-2xl font-bold mb-6 text-blue-700 text-center">Xác nhận Thanh Toán</h1>
+    <h1 class="text-2xl font-bold text-center text-blue-700 mb-6">Xác nhận Thanh Toán</h1>
 
-    <div class="bg-white shadow rounded p-6 space-y-4 border">
-      <p class="text-lg"><strong>Tên miền:</strong> {{ domain }}</p>
+    <div class="bg-white p-6 rounded shadow border space-y-4">
+      <p><strong>Tên miền:</strong> {{ domain }}</p>
 
-      <div>
-        <label class="text-lg"><strong>Thời gian đăng ký:</strong></label>
-        <select v-model="years" class="w-full border rounded p-2">
-          <option v-for="n in 5" :key="n" :value="n">{{ n }} năm</option>
-        </select>
-      </div>
+      <input v-model.number="months" type="number" min="1" class="w-full border p-2 rounded" placeholder="Thời gian thuê (tháng)" />
+      <input v-model="discountCode" type="text" class="w-full border p-2 rounded" placeholder="Mã giảm giá (nếu có)" />
 
-      <p class="text-lg"><strong>Giá:</strong> {{ formatVND(totalPrice) }}</p>
+      <select v-model="selectedPayment" class="w-full border p-2 rounded">
+        <option disabled value="">Chọn phương thức thanh toán</option>
+        <option v-for="method in paymentMethods" :key="method.id" :value="method.id">
+          {{ method.paymentMethodName }}
+        </option>
+      </select>
 
-      <button class="w-full mt-6 bg-blue-600 text-white py-2 rounded hover:bg-blue-700">
+      <p><strong>Tổng giá:</strong> {{ formatVND(totalPrice) }}</p>
+
+      <button @click="submitOrder" class="w-full bg-blue-600 text-white py-2 rounded hover:bg-blue-700">
         Tiến hành thanh toán
       </button>
     </div>
@@ -22,16 +25,54 @@
 </template>
 
 <script setup lang="ts">
-import { ref, computed } from 'vue'
-import { useRoute } from 'vue-router'
+import { ref, computed, onMounted } from 'vue'
+import { useRoute, useRouter } from 'vue-router'
+import axios from 'axios'
 
 const route = useRoute()
-const domain = route.query.domain as string || 'Không xác định'
+const router = useRouter()
+
+const domain = (route.query.domain as string) || ''
+const domainProductId = parseInt(route.query.domainProductId as string) || 0
 const basePrice = parseInt(route.query.price as string) || 0
-const years = ref(1)
 
-const totalPrice = computed(() => basePrice * years.value)
+const months = ref(1)
+const discountCode = ref('')
+const selectedPayment = ref('')
+const paymentMethods = ref<{ id: number; paymentMethodName: string }[]>([])
 
-const formatVND = (amount: number) =>
-  amount.toLocaleString('vi-VN', { style: 'currency', currency: 'VND' })
+const totalPrice = computed(() => basePrice * months.value)
+const formatVND = (n: number) => n.toLocaleString('vi-VN', { style: 'currency', currency: 'VND' })
+
+onMounted(async () => {
+  try {
+    const res = await axios.get('http://localhost:5246/api/payment_method')
+    paymentMethods.value = res.data
+  } catch (err) {
+    alert('Không thể tải phương thức thanh toán')
+  }
+})
+
+const submitOrder = async () => {
+  const token = localStorage.getItem('token')
+  if (!token) return alert('Bạn cần đăng nhập')
+  if (!selectedPayment.value) return alert('Chọn phương thức thanh toán')
+
+  try {
+    await axios.post('http://localhost:5246/api/order', {
+      domainProductId,
+      paymentMethodId: selectedPayment.value,
+      discountId: 1,
+      durationByMonth: months.value,
+      domainFirstPart: domain.split('.')[0]
+    }, {
+      headers: { Authorization: `Bearer ${token}` }
+    })
+
+    alert('Đơn hàng đã được tạo!')
+    router.push('/ordersuccess')
+  } catch (err) {
+    alert('Tạo đơn hàng thất bại!')
+  }
+}
 </script>

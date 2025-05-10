@@ -95,7 +95,7 @@ async function register() {
     const { token, name: customerName, hasType} = response.data
 
     localStorage.setItem('token', token)
-    localStorage.setItem('loggedIn', 'true')
+    //localStorage.setItem('loggedIn', 'true')
     localStorage.setItem('customerName', customerName)
     localStorage.setItem('customerRole', hasType)
     router.push('/')
