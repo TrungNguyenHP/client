@@ -1,5 +1,5 @@
 <template>
-  <div class="p-8 max-w-lg mx-auto">
+  <div class="p-8 max-w-lg mx-auto select-none">
     <h1 class="text-2xl font-bold text-center text-blue-700 mb-6">Xác nhận Thanh Toán</h1>
 
     <div class="bg-white p-6 rounded shadow border space-y-4">
@@ -62,7 +62,7 @@ const submitOrder = async () => {
     await axios.post('http://localhost:5246/api/order', {
       domainProductId,
       paymentMethodId: selectedPayment.value,
-      discountId: 1,
+      discountCode: discountCode.value || null,
       durationByMonth: months.value,
       domainFirstPart: domain.split('.')[0]
     }, {

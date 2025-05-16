@@ -1,5 +1,5 @@
 <template>
-  <div class="p-8 max-w-lg mx-auto">
+  <div class="p-8 max-w-lg mx-auto select-none">
     <h1 class="text-2xl font-semibold mb-4">Đăng ký {{ domainName }}</h1>
     <form @submit.prevent="submit" class="flex flex-col gap-3">
       <input v-model="keyword" type="text" placeholder="Tên miền" class="border p-2 rounded" />

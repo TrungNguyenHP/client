@@ -5,7 +5,6 @@ import Domains from '@/pages/Domains.vue'
 import RegisterDomain from '@/pages/RegisterDomain.vue'
 import Checkout from '@/pages/Checkout.vue'
 import Contact from '@/pages/Contact.vue'
-import Transfer from '@/pages/Transfer.vue'
 import Renew from '@/pages/Renew.vue'
 import Profile from '@/pages/Profile.vue'
 import UserServices from '@/pages/UserServices.vue'
@@ -14,6 +13,8 @@ import Register from '@/pages/Register.vue'
 import GuestLayout from '@/layouts/GuestLayout.vue'
 import DefaultLayout from '@/layouts/DefaultLayout.vue'
 import OrderSuccess from '@/pages/OrderSuccess.vue'
+import ForgotPassword from '@/pages/ForgotPassword.vue'
+import ChangePassword from '@/pages/ChangePassword.vue'
 const routes = [
   {
     path: '/',
@@ -25,11 +26,11 @@ const routes = [
       { path: 'registerdomain/:domain', name: 'RegisterDomain', component: RegisterDomain },
       { path: 'checkout', name: 'Checkout', component: Checkout },
       { path: 'contact', name: 'Contact', component: Contact },
-      { path: 'transfer', name: 'Transfer', component: Transfer },
       { path: 'renew', name: 'Renew', component: Renew },
       { path: 'profile', name: 'Profile', component: Profile },
       { path: 'profile/userservices', name: 'UserServices', component: UserServices },
       { path: 'OrderSuccess', name: 'OrderSuccess', component: OrderSuccess },
+      { path: 'change-password', name: 'ChangePassword', component: ChangePassword },
     ],
   },
   {
@@ -46,6 +47,13 @@ const routes = [
       { path: '', name: 'Register', component: Register },
     ],
   },
+  {
+    path: '/forgot-password',
+    component: GuestLayout,
+    children: [
+      { path: '', name: 'ForgotPassword', component: ForgotPassword },
+    ],
+  },
 ]
 
 const router = createRouter({
@@ -53,14 +61,6 @@ const router = createRouter({
   routes,
 })
 
-// Chặn truy cập nếu chưa đăng nhập
-router.beforeEach((to, _, next) => {
-  const isAuthenticated = localStorage.getItem('loggedIn') === 'true'
-  if (to.meta.requiresAuth && !isAuthenticated) {
-    next('/login')
-  } else {
-    next()
-  }
-})
+
 
 export default router

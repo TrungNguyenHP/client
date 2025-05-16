@@ -1,5 +1,5 @@
 <template>
-  <section class="p-8 max-w-7xl mx-auto">
+  <section class="p-8 max-w-7xl mx-auto select-none">
     <h1 class="text-3xl font-bold mb-6 text-center text-blue-700">Bảng Giá Tên Miền</h1>
 
     <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">

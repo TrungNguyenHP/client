@@ -1,5 +1,5 @@
 <template>
-  <div class="p-8 max-w-xl mx-auto text-center">
+  <div class="p-8 max-w-xl mx-auto text-center select-none">
     <h1 class="text-3xl font-bold text-green-600 mb-4">🎉 Cảm ơn bạn đã đặt hàng!</h1>
     
     <p class="text-lg mb-2">

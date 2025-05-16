@@ -1,6 +1,6 @@
 
-<template>
-  <div>
+<template >
+  <div class="select-none" >
     <div class="w-full max-w-md bg-white rounded-xl shadow-xl p-8">
       
       <div class="text-center mb-6">
@@ -10,9 +10,9 @@
 
       <form @submit.prevent="login" class="space-y-5">
       <input
-        type="text"
-        v-model="name"
-        placeholder="Tên đăng nhập"
+        type="email"
+        v-model="email"
+        placeholder="Email đăng nhập"
         class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-400"
         required
       />
@@ -30,11 +30,14 @@
         Đăng nhập
       </button>
     </form>
-
+      <p class="text-center text-sm text-gray-600 mt-5">
+          <RouterLink to="/forgot-password" class="text-indigo-500 hover:underline font-medium">Quên mật khẩu</RouterLink>
+      </p>
       <p class="text-center text-sm text-gray-600 mt-5">
         Chưa có tài khoản?
         <RouterLink to="/register" class="text-indigo-500 hover:underline font-medium">Đăng ký ngay</RouterLink>
       </p>
+      
     </div>
   </div>
 </template>
@@ -44,21 +47,20 @@ import { ref  } from 'vue'
 import { useRouter } from 'vue-router'
 import axios from 'axios'
 
-const name = ref('')
+const email = ref('')
 const password = ref('')
 const router = useRouter()
 
 async function login() {
   try {
     const response = await axios.post('http://localhost:5246/api/customer/login', {
-    name: name.value,
+    email: email.value,
     password: password.value
   })
-    const { token, name: customerName, hasType,} = response.data
+    const { token, name: customerName} = response.data
     localStorage.setItem('token', token)
-    localStorage.setItem('loggedIn', 'true')
     localStorage.setItem('customerName', customerName)
-    localStorage.setItem('customerRole', hasType)
+
     router.push('/')
   } catch (error: any) {
     alert(error.response?.data || 'Đăng nhập thất bại. Vui lòng kiểm tra lại.')

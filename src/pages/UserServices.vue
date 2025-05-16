@@ -1,6 +1,6 @@
 <template>
-  <div class="max-w-4xl mx-auto p-8 bg-white shadow-lg rounded-lg">
-    <h1 class="text-3xl font-semibold text-center mb-8">Dịch vụ đã đăng ký</h1>
+  <div class="max-w-4xl mx-auto p-8 bg-white shadow-lg rounded-lg select-none">
+    <h1 class="text-3xl font-bold mb-6 text-center text-blue-700">Dịch vụ đã đăng ký</h1>
 
     <div v-if="services.length === 0" class="text-center text-gray-500">
       <p>Chưa có dịch vụ nào được đăng ký.</p>

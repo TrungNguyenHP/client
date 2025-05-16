@@ -1,13 +1,13 @@
 
 <template>
-  <div>
+  <div class="select-none">
     <div class="bg-white p-8 rounded-xl shadow-lg w-full max-w-md">
       <h2 class="text-3xl font-bold text-center text-pink-600 mb-6">Đăng ký</h2>
       <form @submit.prevent="register" class="space-y-4">
         <input
           type="text"
           v-model="name"
-          placeholder="Tên đăng nhập"
+          placeholder="Tên người dùng"
           class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-pink-400"
           required
         />
@@ -89,15 +89,13 @@ async function register() {
       email: email.value,
       phoneNumber: phone.value,
       password: password.value,
-      customerTypeId: 1,
+      customerTypeId: 3,
       address: address.value
     })
-    const { token, name: customerName, hasType} = response.data
-
+    const { token, name: customerName} = response.data
     localStorage.setItem('token', token)
-    //localStorage.setItem('loggedIn', 'true')
     localStorage.setItem('customerName', customerName)
-    localStorage.setItem('customerRole', hasType)
+  
     router.push('/')
   } catch (error: any) {
     alert(error.response?.data || 'Đăng ký thất bại. Vui lòng thử lại.')
