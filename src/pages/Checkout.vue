@@ -1,28 +1,51 @@
 <template>
-  <div class="p-8 max-w-lg mx-auto select-none">
-    <h1 class="text-2xl font-bold text-center text-blue-700 mb-6">Xác nhận Thanh Toán</h1>
+  <div class="max-w-6xl mx-auto px-4 py-16 select-none">
+    <h1 class="text-3xl font-bold text-center text-blue-600 mb-10">Xác nhận Thanh Toán</h1>
 
-    <div class="bg-white p-6 rounded shadow border space-y-4">
-      <p><strong>Tên miền:</strong> {{ domain }}</p>
+    <div class="bg-white max-w-xl mx-auto p-6 rounded-lg shadow border space-y-6">
+      <div>
+        <p class="text-gray-700 text-lg"><strong class="text-blue-600">Tên miền:</strong> {{ domain }}</p>
+      </div>
 
-      <input v-model.number="months" type="number" min="1" class="w-full border p-2 rounded" placeholder="Thời gian thuê (tháng)" />
-      <input v-model="discountCode" type="text" class="w-full border p-2 rounded" placeholder="Mã giảm giá (nếu có)" />
+      <div class="space-y-4">
+        <input
+          v-model.number="months"
+          type="number"
+          min="1"
+          class="w-full border-2 border-gray-200 p-3 rounded focus:outline-none focus:ring-2 focus:ring-blue-500"
+          placeholder="Thời gian thuê (tháng)"
+        />
+        <input
+          v-model="discountCode"
+          type="text"
+          class="w-full border-2 border-gray-200 p-3 rounded focus:outline-none focus:ring-2 focus:ring-blue-500"
+          placeholder="Mã giảm giá (nếu có)"
+        />
+        <select
+          v-model="selectedPayment"
+          class="w-full border-2 border-gray-200 p-3 rounded focus:outline-none focus:ring-2 focus:ring-blue-500"
+        >
+          <option disabled value="">Chọn phương thức thanh toán</option>
+          <option v-for="method in paymentMethods" :key="method.id" :value="method.id">
+            {{ method.paymentMethodName }}
+          </option>
+        </select>
+      </div>
 
-      <select v-model="selectedPayment" class="w-full border p-2 rounded">
-        <option disabled value="">Chọn phương thức thanh toán</option>
-        <option v-for="method in paymentMethods" :key="method.id" :value="method.id">
-          {{ method.paymentMethodName }}
-        </option>
-      </select>
+      <div class="text-lg text-gray-800">
+        <strong class="text-blue-600">Tổng giá:</strong> {{ formatVND(totalPrice) }}
+      </div>
 
-      <p><strong>Tổng giá:</strong> {{ formatVND(totalPrice) }}</p>
-
-      <button @click="submitOrder" class="w-full bg-blue-600 text-white py-2 rounded hover:bg-blue-700">
+      <button
+        @click="submitOrder"
+        class="w-full bg-blue-600 text-white py-3 rounded font-semibold hover:bg-blue-700 transition"
+      >
         Tiến hành thanh toán
       </button>
     </div>
   </div>
 </template>
+
 
 <script setup lang="ts">
 import { ref, computed, onMounted } from 'vue'

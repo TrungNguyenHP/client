@@ -1,12 +1,25 @@
 <template>
   <div class="p-8 max-w-lg mx-auto select-none">
-    <h1 class="text-2xl font-semibold mb-4">Đăng ký {{ domainName }}</h1>
-    <form @submit.prevent="submit" class="flex flex-col gap-3">
-      <input v-model="keyword" type="text" placeholder="Tên miền" class="border p-2 rounded" />
-      <button class="bg-blue-600 text-white py-2 rounded hover:bg-blue-700">Đăng ký</button>
+    <h1 class="text-2xl font-semibold mb-6 text-blue-700">Đăng ký đuôi .{{ domainName }}</h1>
+    <form @submit.prevent="submit" class="flex flex-col gap-4">
+      <label for="domain" class="text-lg font-medium mb-1">Nhập tên miền bạn muốn đăng ký với đuôi trên</label>
+      <input
+        v-model="keyword"
+        id="domain"
+        type="text"
+        placeholder="Ví dụ: yourbrand"
+        class="border p-3 rounded focus:outline-none focus:ring-2 focus:ring-blue-500"
+      />
+      <button
+        type="submit"
+        class="bg-blue-600 text-white py-3 rounded hover:bg-blue-700 transition"
+      >
+        Đăng ký
+      </button>
     </form>
   </div>
 </template>
+
 
 <script setup lang="ts">
 import { ref, onMounted } from 'vue'

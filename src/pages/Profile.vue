@@ -1,6 +1,6 @@
 <template>
   <div class="max-w-3xl mx-auto p-8 bg-white shadow-lg rounded-lg select-none">
-    <h1 class="text-3xl font-semibold text-center mb-8">Thông tin hồ sơ</h1>
+    <h1 class="text-3xl font-semibold text-center mb-8 text-blue-700">Thông tin hồ sơ</h1>
 
     <form @submit.prevent="handleSubmit" class="space-y-6">
       <!-- Loại khách hàng -->
@@ -9,7 +9,7 @@
         <input
           type="text"
           :value="type"
-          class="w-full p-3 border rounded-md bg-gray-100 "
+          class="w-full p-3 border rounded-md bg-gray-100 cursor-not-allowed"
           disabled
         />
       </div>
@@ -21,9 +21,11 @@
           v-model="name"
           type="text"
           id="name"
-          class="w-full p-3 border rounded-md"
           :readonly="!isEditing"
-          :class="isEditing ? 'bg-white' : 'bg-gray-100 '"
+          :class="[
+            'w-full p-3 border rounded-md',
+            isEditing ? 'bg-white' : 'bg-gray-100 cursor-not-allowed'
+          ]"
         />
       </div>
 
@@ -34,8 +36,8 @@
           v-model="email"
           type="email"
           id="email"
-          class="w-full p-3 border rounded-md bg-gray-100 "
           readonly
+          class="w-full p-3 border rounded-md bg-gray-100 cursor-not-allowed"
         />
       </div>
 
@@ -46,9 +48,11 @@
           v-model="phone"
           type="text"
           id="phone"
-          class="w-full p-3 border rounded-md"
           :readonly="!isEditing"
-          :class="isEditing ? 'bg-white' : 'bg-gray-100 '"
+          :class="[
+            'w-full p-3 border rounded-md',
+            isEditing ? 'bg-white' : 'bg-gray-100 cursor-not-allowed'
+          ]"
         />
       </div>
 
@@ -59,9 +63,11 @@
           v-model="address"
           type="text"
           id="address"
-          class="w-full p-3 border rounded-md"
           :readonly="!isEditing"
-          :class="isEditing ? 'bg-white' : 'bg-gray-100 '"
+          :class="[
+            'w-full p-3 border rounded-md',
+            isEditing ? 'bg-white' : 'bg-gray-100 cursor-not-allowed'
+          ]"
         />
       </div>
 
@@ -70,7 +76,7 @@
         <button
           type="button"
           @click="toggleEdit"
-          class="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700"
+          class="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700 transition"
         >
           {{ isEditing ? 'Lưu' : 'Chỉnh sửa' }}
         </button>
@@ -78,6 +84,7 @@
     </form>
   </div>
 </template>
+
 
 
 <script setup lang="ts">
