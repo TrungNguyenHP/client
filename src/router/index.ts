@@ -4,7 +4,7 @@ import Home from '@/pages/Home.vue'
 import Domains from '@/pages/Domains.vue'
 import RegisterDomain from '@/pages/RegisterDomain.vue'
 import Checkout from '@/pages/Checkout.vue'
-import Contact from '@/pages/Contact.vue'
+import News from '@/pages/News.vue'
 import Renew from '@/pages/Renew.vue'
 import Profile from '@/pages/Profile.vue'
 import UserServices from '@/pages/UserServices.vue'
@@ -15,6 +15,7 @@ import DefaultLayout from '@/layouts/DefaultLayout.vue'
 import OrderSuccess from '@/pages/OrderSuccess.vue'
 import ForgotPassword from '@/pages/ForgotPassword.vue'
 import ChangePassword from '@/pages/ChangePassword.vue'
+import Cancelled from '@/pages/Cancelled.vue'
 const routes = [
   {
     path: '/',
@@ -25,12 +26,13 @@ const routes = [
       { path: 'domains', name: 'Domains', component: Domains },
       { path: 'registerdomain/:domain', name: 'RegisterDomain', component: RegisterDomain },
       { path: 'checkout', name: 'Checkout', component: Checkout },
-      { path: 'contact', name: 'Contact', component: Contact },
+      { path: 'news', name: 'News', component: News },
       { path: 'renew', name: 'Renew', component: Renew },
       { path: 'profile', name: 'Profile', component: Profile },
       { path: 'profile/userservices', name: 'UserServices', component: UserServices },
       { path: 'OrderSuccess', name: 'OrderSuccess', component: OrderSuccess },
       { path: 'change-password', name: 'ChangePassword', component: ChangePassword },
+      { path: 'profile/cancelled', name: 'Cancelled', component: Cancelled },
     ],
   },
   {

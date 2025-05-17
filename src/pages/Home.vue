@@ -172,7 +172,6 @@ async function checkDomain() {
   try {
     const response = await axios.get('http://localhost:5246/api/registered_domain')
     const registeredDomains = response.data
-
     const isRegistered = registeredDomains.some((item: any) =>
       item.fullDomainName?.toLowerCase() === domain.toLowerCase()
     )

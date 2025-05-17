@@ -22,14 +22,14 @@
           class="text-lg hover:text-gray-300 transition"
           active-class="font-semibold text-white border-b-2 border-white"
         >
-          Gia hạn domain
+          Dịch vụ của bạn
         </router-link>
         <router-link
-          to="/contact"
+          to="/news"
           class="text-lg hover:text-gray-300 transition"
           active-class="font-semibold text-white border-b-2 border-white"
         >
-          Liên hệ
+          Tin tức
         </router-link>
       </div>
 
@@ -74,7 +74,14 @@
                 @click="closeDropdowns"
                 class="block px-5 py-3 hover:bg-gray-100 transition"
               >
-                Lịch sử đăng ký
+                Đơn đặt hàng của bạn
+              </router-link>
+              <router-link
+                to="/profile/cancelled"
+                @click="closeDropdowns"
+                class="block px-5 py-3 hover:bg-gray-100 transition"
+              >
+                Domain đã hủy
               </router-link>
               <router-link
                 to="/change-password"
