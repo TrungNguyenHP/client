@@ -57,6 +57,7 @@
 </template>
 
 <script setup lang="ts">
+import axios from 'axios'
 import { ref, onMounted } from 'vue'
 
 type Article = {
@@ -83,38 +84,21 @@ const formatDate = (date: string | Date) => {
   })
 }
 
-/* ------ Lấy bài viết từ API (bạn bổ sung sau) ------ */
+/* ------ Gọi API ------ */
 onMounted(async () => {
-  // Ví dụ gọi API:
-  // const res = await axios.get('/api/news')
-  // articles.value = res.data
-
-  // Tạm mock dữ liệu để bạn dễ nhìn UI
-  articles.value = [
-    {
-      id: 1,
-      title: 'Hosting giảm giá 50% nhân ngày lễ lớn',
-      content: 'Nội dung chi tiết...',
-      summary:
-        'Nhân dịp 2/9, chúng tôi giảm giá tới 50% cho mọi gói hosting dung lượng cao...',
-      imageUrl:
-        'https://source.unsplash.com/random/800x600?server',
-      publishedAt: '2025-05-17T09:30:00'
-    },
-    {
-      id: 2,
-      title: 'Ra mắt gói VPS SSD Gen4 tốc độ cực cao',
-      content: 'Nội dung chi tiết...',
-      summary:
-        'Gói VPS mới sử dụng SSD Gen4 mang lại hiệu năng gấp 6 lần thế hệ trước...',
-      imageUrl:
-        'https://source.unsplash.com/random/800x600?cloud',
-      publishedAt: '2025-05-16T15:45:00'
-    }
-  ]
+  try {
+    const res = await axios.get('http://localhost:5246/api/new')
+    // Giả sử API trả về đúng định dạng
+    articles.value = res.data.map((item: any) => ({
+      id: item.id,
+      title: item.title,
+      content: item.content,
+      summary: item.content.length > 100 ? item.content.slice(0, 100) + '...' : item.content,
+      imageUrl: item.imageUrl,
+      publishedAt: item.createdAt
+    }))
+  } catch (error) {
+    console.error('Lỗi khi lấy tin tức:', error)
+  }
 })
 </script>
-
-<style scoped>
-/* Dòng chữ tiêu đề ngắn quá dài? dùng line-clamp-2 đã thêm ở trên. */
-</style>

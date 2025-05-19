@@ -16,6 +16,7 @@ import OrderSuccess from '@/pages/OrderSuccess.vue'
 import ForgotPassword from '@/pages/ForgotPassword.vue'
 import ChangePassword from '@/pages/ChangePassword.vue'
 import Cancelled from '@/pages/Cancelled.vue'
+import ResetPassword from '@/pages/ResetPassword.vue'
 const routes = [
   {
     path: '/',
@@ -54,6 +55,13 @@ const routes = [
     component: GuestLayout,
     children: [
       { path: '', name: 'ForgotPassword', component: ForgotPassword },
+    ],
+  },
+  {
+    path: '/reset-password',
+    component: GuestLayout,
+    children: [
+      { path: '', name: 'ResetPassword', component: ResetPassword },
     ],
   },
 ]

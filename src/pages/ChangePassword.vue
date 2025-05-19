@@ -40,5 +40,43 @@
 </template>
 
 <script setup lang="ts">
+import { ref } from 'vue'
+import axios from 'axios'
+
+const oldPassword = ref('')
+const newPassword = ref('')
+const confirmPassword = ref('')
+
+const changePassword = async () => {
+  if (newPassword.value !== confirmPassword.value) {
+    alert('Mật khẩu mới và xác nhận không khớp.')
+    return
+  }
+
+  try {
+    const response = await axios.put(
+      'http://localhost:5246/api/customer/change_password',
+      {
+        currentPassword: oldPassword.value,
+        newPassword: newPassword.value
+      },
+      {
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem('token')}` // Giả sử bạn lưu JWT trong localStorage
+        }
+      }
+    )
+
+    alert(response.data || 'Đổi mật khẩu thành công!')
+    // Reset fields nếu muốn
+    oldPassword.value = ''
+    newPassword.value = ''
+    confirmPassword.value = ''
+  } catch (error: any) {
+    alert(
+      error.response?.data || 'Đổi mật khẩu thất bại. Vui lòng thử lại.'
+    )
+  }
+}
 
 </script>
