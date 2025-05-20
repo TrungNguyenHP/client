@@ -1,15 +1,15 @@
 <template>
-  <div class="max-w-5xl mx-auto p-6 md:p-8">
+  <div class="select-none max-w-5xl mx-auto p-6 md:p-8">
     <h1 class="text-3xl font-bold text-center mb-8 text-blue-700">
       Tin tức – Bản cập nhật mới nhất
     </h1>
 
-    <!-- Không có bài viết -->
+
     <p v-if="articles.length === 0" class="text-center text-gray-500">
       Hiện chưa có bài viết nào.
     </p>
 
-    <!-- Danh sách bài viết -->
+
     <div
       v-else
       class="grid gap-8 sm:grid-cols-2 lg:grid-cols-3"
@@ -19,7 +19,7 @@
         :key="post.id"
         class="bg-white shadow rounded-lg overflow-hidden hover:shadow-lg transition-shadow"
       >
-        <!-- Hình đại diện -->
+
         <img
           v-if="post.imageUrl"
           :src="post.imageUrl"
@@ -28,22 +28,20 @@
         />
 
         <div class="p-5 flex flex-col h-full">
-          <!-- Tiêu đề -->
+
           <h2 class="text-xl font-semibold mb-2 line-clamp-2">
             {{ post.title }}
           </h2>
 
-          <!-- Ngày đăng -->
+
           <p class="text-xs text-gray-500 mb-4">
             {{ formatDate(post.publishedAt) }}
           </p>
 
-          <!-- Nội dung ngắn gọn (preview) -->
           <p class="text-gray-700 mb-4 line-clamp-3 flex-grow">
             {{ post.summary }}
           </p>
 
-          <!-- Đọc thêm -->
           <router-link
             :to="`/news/${post.id}`"
             class="text-blue-600 hover:underline mt-auto"
@@ -71,7 +69,6 @@ type Article = {
 
 const articles = ref<Article[]>([])
 
-/* ------ Định dạng ngày ------ */
 const formatDate = (date: string | Date) => {
   return new Date(date).toLocaleDateString('vi-VN', {
     weekday: 'short',
@@ -84,11 +81,9 @@ const formatDate = (date: string | Date) => {
   })
 }
 
-/* ------ Gọi API ------ */
 onMounted(async () => {
   try {
     const res = await axios.get('http://localhost:5246/api/new')
-    // Giả sử API trả về đúng định dạng
     articles.value = res.data.map((item: any) => ({
       id: item.id,
       title: item.title,

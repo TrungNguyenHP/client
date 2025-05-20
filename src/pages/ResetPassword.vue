@@ -1,28 +1,27 @@
 <template>
-  <div class="select-none ">
-    <div class="w-full max-w-md bg-white rounded-xl shadow-md p-8">
+  <div class="select-none">
+    <div class="w-full max-w-md bg-white rounded-xl p-10">
       <div class="text-center mb-6">
-        <h1 class="text-3xl font-bold text-yellow-700">Đặt lại mật khẩu</h1>
-        <p class="text-gray-600 mt-2">Vui lòng nhập mật khẩu mới của bạn</p>
+        <h1 class="text-4xl font-bold text-yellow-600">Đặt lại mật khẩu</h1>
       </div>
       <form @submit.prevent="resetPassword" class="space-y-5">
         <input
           type="password"
           v-model="newPassword"
           placeholder="Mật khẩu mới"
-          class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-yellow-500"
+          class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-yellow-400"
           required
         />
         <input
           type="password"
           v-model="confirmPassword"
           placeholder="Xác nhận mật khẩu mới"
-          class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-yellow-500"
+          class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-yellow-400"
           required
         />
         <button
           type="submit"
-          class="w-full bg-yellow-600 text-white py-3 rounded-lg font-semibold hover:bg-yellow-700 transition duration-200"
+          class="w-full bg-yellow-600 text-white py-2 rounded-lg font-semibold hover:bg-yellow-700"
         >
           Xác nhận
         </button>

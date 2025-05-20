@@ -80,19 +80,19 @@
           <div class="border p-6 rounded-lg hover:shadow-lg transition">
             <h3 class="text-2xl font-bold mb-2">.com</h3>
             <span class="inline-block bg-yellow-400 text-xs font-semibold px-2 py-1 rounded-full mb-3">Bán chạy</span>
-            <p class="text-3xl font-bold text-blue-500 mb-4">290.000₫/năm</p>
+            <p class="text-3xl font-bold text-blue-500 mb-4">290.000₫/tháng</p>
             <router-link to="/domains" class="inline-block bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700">Đăng ký ngay</router-link>
           </div>
           <div class="border p-6 rounded-lg hover:shadow-lg transition">
             <h3 class="text-2xl font-bold mb-2">.net</h3>
             <span class="inline-block bg-green-400 text-xs font-semibold px-2 py-1 rounded-full mb-3">Phổ biến</span>
-            <p class="text-3xl font-bold text-blue-500 mb-4">320.000₫/năm</p>
+            <p class="text-3xl font-bold text-blue-500 mb-4">320.000₫/tháng</p>
             <router-link to="/domains" class="inline-block bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700">Đăng ký ngay</router-link>
           </div>
           <div class="border p-6 rounded-lg hover:shadow-lg transition">
             <h3 class="text-2xl font-bold mb-2">.vn</h3>
             <span class="inline-block bg-red-400 text-xs font-semibold px-2 py-1 rounded-full mb-3">Ưu đãi</span>
-            <p class="text-3xl font-bold text-blue-500 mb-4">850.000₫/năm</p>
+            <p class="text-3xl font-bold text-blue-500 mb-4">850.000₫/tháng</p>
             <router-link to="/domains" class="inline-block bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700">Đăng ký ngay</router-link>
           </div>
         </div>
@@ -158,17 +158,14 @@ async function checkDomain() {
   const domain = searchDomain.value.trim()
 
   if (!domain) {
-    searchResult.value = '⚠️ Vui lòng nhập tên domain!'
+    searchResult.value = 'Vui lòng nhập tên domain!'
     return
   }
 
   if (!domain.includes('.')) {
-    searchResult.value = '⚠️ Vui lòng nhập đầy đủ tên domain, ví dụ: youtube.com'
+    searchResult.value = 'Vui lòng nhập đầy đủ tên domain, ví dụ: youtube.com'
     return
   }
-
-  searchResult.value = `🔍 Đang kiểm tra domain "${domain}"...`
-
   try {
     const response = await axios.get('http://localhost:5246/api/registered_domain')
     const registeredDomains = response.data
@@ -184,7 +181,7 @@ async function checkDomain() {
 
   } catch (error) {
     console.error('Lỗi kiểm tra domain:', error)
-    searchResult.value = '❌ Có lỗi xảy ra khi kiểm tra domain. Vui lòng thử lại sau.'
+    searchResult.value = 'Có lỗi xảy ra khi kiểm tra domain. Vui lòng thử lại sau.'
   }
 }
 </script>
