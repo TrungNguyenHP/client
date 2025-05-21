@@ -8,7 +8,7 @@
         <label class="block text-lg font-medium mb-1">Loại khách hàng</label>
         <input
           type="text"
-          :value="type"
+          :value="customtype"
           class="w-full p-3 border rounded-md bg-gray-100 cursor-not-allowed"
           disabled
         />
@@ -93,8 +93,8 @@ import axios from 'axios'
 
 const isEditing = ref(false)
 const id = ref('')
-const type = ref('')
-const customerTypeId = ref(0)
+const customtype = ref('')
+const customerTypeId = ref('')
 const name = ref('')
 const email = ref('')
 const phone = ref('')
@@ -108,15 +108,13 @@ const loadProfile = async () => {
     const response = await axios.get('http://localhost:5246/api/customer/profile', {
       headers: { Authorization: `Bearer ${token}` }
     })
-
     const data = response.data
     id.value = data.id
     name.value = data.name
     email.value = data.email
     phone.value = data.phoneNumber
     address.value = data.address
-    type.value = data.hasType
-    customerTypeId.value = data.customerTypeId
+    customtype.value = data.hasType
   } catch (error) {
     console.error('Lỗi khi tải thông tin hồ sơ:', error)
     alert('Không thể tải thông tin hồ sơ. Vui lòng thử lại sau.')
@@ -137,7 +135,6 @@ const toggleEdit = async () => {
           name: name.value,
           address: address.value,
           phoneNumber: phone.value,
-          customerTypeId: customerTypeId.value
         },
         {
           headers: { Authorization: `Bearer ${token}` }

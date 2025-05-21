@@ -105,27 +105,27 @@
         <h2 class="text-3xl font-bold text-blue-600 mb-10">Khách hàng nói gì về chúng tôi</h2>
         <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
           <div class="bg-white p-6 rounded-lg shadow hover:shadow-lg transition">
-            <img src="https://i.pravatar.cc/100?img=1" alt="Customer 1" class="mx-auto rounded-full w-24 h-24 object-cover mb-4" />
+            <img src="https://cdn.iconscout.com/icon/free/png-256/free-avatar-icon-download-in-svg-png-gif-file-formats--user-boy-avatars-flat-icons-pack-people-456322.png" alt="Customer 1" class="mx-auto rounded-full w-24 h-24 object-cover mb-4" />
             <p class="text-gray-600 italic mb-4">
-              "Dịch vụ đăng ký domain tại DomainStore rất nhanh chóng và dễ dàng. Tôi chỉ mất 5 phút để sở hữu domain cho doanh nghiệp!"
+              "Dịch vụ đăng ký domain tại DomainStore rất nhanh chóng và dễ dàng"
             </p>
             <h4 class="font-bold text-blue-500">Phạm Trung Hiếu</h4>
             <span class="text-sm text-gray-500">Giám đốc Marketing</span>
           </div>
 
           <div class="bg-white p-6 rounded-lg shadow hover:shadow-lg transition">
-            <img src="https://i.pravatar.cc/100?img=2" alt="Customer 2" class="mx-auto rounded-full w-24 h-24 object-cover mb-4" />
+            <img src="https://cdn.iconscout.com/icon/free/png-256/free-avatar-icon-download-in-svg-png-gif-file-formats--user-boy-avatars-flat-icons-pack-people-456322.png" alt="Customer 2" class="mx-auto rounded-full w-24 h-24 object-cover mb-4" />
             <p class="text-gray-600 italic mb-4">
-              "Giá domain ở đây cực kỳ hợp lý, lại còn được tặng kèm SSL miễn phí. Rất hài lòng với sự hỗ trợ 24/7 từ đội ngũ kỹ thuật."
+              "Giá domain ở đây cực kỳ hợp lý"
             </p>
             <h4 class="font-bold text-blue-500">Vũ Quý Nghĩa</h4>
             <span class="text-sm text-gray-500">Chủ shop online</span>
           </div>
 
           <div class="bg-white p-6 rounded-lg shadow hover:shadow-lg transition">
-            <img src="https://i.pravatar.cc/100?img=3" alt="Customer 3" class="mx-auto rounded-full w-24 h-24 object-cover mb-4" />
+            <img src="https://cdn.iconscout.com/icon/free/png-256/free-avatar-icon-download-in-svg-png-gif-file-formats--user-boy-avatars-flat-icons-pack-people-456322.png" alt="Customer 3" class="mx-auto rounded-full w-24 h-24 object-cover mb-4" />
             <p class="text-gray-600 italic mb-4">
-              "Website chuyên nghiệp, thao tác đơn giản, mọi thứ rất dễ tìm kiếm. Tôi sẽ tiếp tục sử dụng dịch vụ trong tương lai."
+              "Website chuyên nghiệp, thao tác đơn giản, mọi thứ rất dễ tìm kiếm"
             </p>
             <h4 class="font-bold text-blue-500">Trần Trọng Nghĩa</h4>
             <span class="text-sm text-gray-500">Freelancer thiết kế web</span>
@@ -166,8 +166,14 @@ async function checkDomain() {
     searchResult.value = 'Vui lòng nhập đầy đủ tên domain, ví dụ: youtube.com'
     return
   }
+
   try {
-    const response = await axios.get('http://localhost:5246/api/registered_domain')
+    const response = await axios.get('http://localhost:5246/api/registered_domain', {
+      headers: {
+        Authorization: `Bearer ${localStorage.getItem('token')}`
+      }
+    })
+
     const registeredDomains = response.data
     const isRegistered = registeredDomains.some((item: any) =>
       item.fullDomainName?.toLowerCase() === domain.toLowerCase()
@@ -184,4 +190,6 @@ async function checkDomain() {
     searchResult.value = 'Có lỗi xảy ra khi kiểm tra domain. Vui lòng thử lại sau.'
   }
 }
+
+ 
 </script>

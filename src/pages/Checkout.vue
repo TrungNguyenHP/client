@@ -69,8 +69,12 @@ const formatVND = (n: number) => n.toLocaleString('vi-VN', { style: 'currency', 
 
 onMounted(async () => {
   try {
-    const res = await axios.get('http://localhost:5246/api/payment_method')
-    paymentMethods.value = res.data
+    const response = await axios.get('http://localhost:5246/api/payment_method', {
+      headers: {
+        Authorization: `Bearer ${localStorage.getItem('token')}`
+      }
+    })
+    paymentMethods.value = response.data
   } catch (err) {
     alert('Không thể tải phương thức thanh toán')
   }
@@ -85,7 +89,7 @@ const submitOrder = async () => {
     await axios.post('http://localhost:5246/api/order', {
       domainProductId,
       paymentMethodId: selectedPayment.value,
-      discountCode: discountCode.value || null,
+      DiscountCode: discountCode.value || null,
       durationByMonth: months.value,
       domainFirstPart: domain.split('.')[0]
     }, {

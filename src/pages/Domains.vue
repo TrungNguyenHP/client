@@ -22,11 +22,16 @@ const domains = ref([])
 
 onMounted(async () => {
   try {
-    const res = await axios.get('http://localhost:5246/api/domain_product')
-    domains.value = res.data
+    const response = await axios.get('http://localhost:5246/api/domain_product', {
+      headers: {
+        Authorization: `Bearer ${localStorage.getItem('token')}`
+      }
+    })
+    domains.value = response.data
   } catch (err) {
     console.error('Lỗi tải domain:', err)
     alert('Không thể tải tên miền.')
   }
 })
+
 </script>

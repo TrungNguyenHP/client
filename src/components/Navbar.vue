@@ -37,6 +37,7 @@
       <div class="flex items-center gap-6">
         <div class="hidden md:flex flex-col text-sm text-right leading-5">
           <div>📞 0916070437</div>
+          <div>📧 trung92360@st.vimaru.edu.vn</div>
         </div>
 
         <div v-if="isLoggedIn" class="relative">

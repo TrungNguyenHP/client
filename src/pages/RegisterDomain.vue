@@ -33,12 +33,20 @@ const keyword = ref('')
 const price = ref(0)
 const productId = ref<number | null>(null)
 onMounted(async () => {
-  const res = await axios.get('http://localhost:5246/api/domain_product')
-  const item = res.data.find((d: any) => d.domainName === domainName)
-  if (item){
-    price.value = item.price
-    productId.value = item.id
-  } 
+  try {
+    const response = await axios.get('http://localhost:5246/api/domain_product', {
+      headers: {
+        Authorization: `Bearer ${localStorage.getItem('token')}`
+      }
+    })
+    const item = response.data.find((d: any) => d.domainName === domainName)
+    if (item) {
+      price.value = item.price
+      productId.value = item.id
+    }
+  } catch (err) {
+    alert('Không thể tải thông tin tên miền')
+  }
 })
 
 const submit = () => {

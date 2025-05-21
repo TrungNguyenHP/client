@@ -48,11 +48,11 @@ onMounted(async () => {
   }
 
   try {
-    const res = await axios.get('http://localhost:5246/api/order', {
+    const response = await axios.get('http://localhost:5246/api/order', {
       headers: { Authorization: `Bearer ${token}` }
     })
 
-    const paidOrders = res.data.filter((order: any) => order.status === 'Paid')
+    const paidOrders = response.data.filter((order: any) => order.status === 'Paid')
 
     const domainMap = new Map<string, any>()
 

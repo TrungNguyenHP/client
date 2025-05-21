@@ -44,7 +44,6 @@ const submitEmail = async () => {
     const response = await axios.post('http://localhost:5246/api/customer/forgot_password', {
       email: email.value
     })
-
     alert(response.data || 'Hướng dẫn đặt lại mật khẩu đã được gửi đến email của bạn.')
     email.value = ''
   } catch (error: any) {

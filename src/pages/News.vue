@@ -83,8 +83,13 @@ const formatDate = (date: string | Date) => {
 
 onMounted(async () => {
   try {
-    const res = await axios.get('http://localhost:5246/api/new')
-    articles.value = res.data.map((item: any) => ({
+    const response = await axios.get('http://localhost:5246/api/new', {
+      headers: {
+        Authorization: `Bearer ${localStorage.getItem('token')}`
+      }
+    })
+
+    articles.value = response.data.map((item: any) => ({
       id: item.id,
       title: item.title,
       content: item.content,
@@ -96,4 +101,5 @@ onMounted(async () => {
     console.error('Lỗi khi lấy tin tức:', error)
   }
 })
+
 </script>

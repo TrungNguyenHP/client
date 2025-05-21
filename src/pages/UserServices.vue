@@ -76,11 +76,11 @@ onMounted(async () => {
     return
   }
   try {
-    const res = await axios.get('http://localhost:5246/api/order', {
+    const response = await axios.get('http://localhost:5246/api/order', {
       headers: { Authorization: `Bearer ${token}` }
     })
     
-    services.value = res.data
+    services.value = response.data
     .filter((order: any) => order.status?.toLowerCase() === 'pending')
     .map((order: any) => ({
     id: order.id,
